@@ -13,6 +13,10 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.UniqueConstraint;
+import javax.validation.constraints.NotNull;
+
+import org.hibernate.validator.constraints.UniqueElements;
 
 import lombok.Data;
 @Data
@@ -55,11 +59,17 @@ public class Eleve implements Serializable{
      */
     @OneToMany(mappedBy = "eleve", cascade = {CascadeType.ALL})
     private List<Observation> convocation;
+    
+    @NotNull
+    @UniqueElements
+    private String matricule;
     private String contactPrarent;
     private String nomPere;
     private String quartier;
     private String redoublant;
     private String photolink;
+    @Column(nullable = false)
+    private boolean  active;
     @Column(nullable = true)
     private double moyenneT1;
     @Column(nullable = true)

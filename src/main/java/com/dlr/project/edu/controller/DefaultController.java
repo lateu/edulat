@@ -16,10 +16,10 @@ public class DefaultController {
         return "/home";
     }
 
-    @GetMapping("/eleves")
+   /* @GetMapping("/eleves")
     public String eleves() {
         return "/eleves";
-    }
+    }*/
 
     @GetMapping("/user")
     public String user() {

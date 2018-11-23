@@ -10,11 +10,12 @@ import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
-
+import javax.validation.constraints.NotNull;
 import lombok.Data;
 
 @Entity
 @Data
+
 public class ClasseLevel implements Serializable{
 	 private static final long serialVersionUID = 1L;
 	    @Id
@@ -24,5 +25,9 @@ public class ClasseLevel implements Serializable{
 	    private String niveau;
 	    @OneToMany(mappedBy = "classeLevel")
 	    private List<Classe> classes = new ArrayList<Classe>();
+	    @NotNull
 	    private Cycle cycleEtude;
+		
+		
+	    
 }

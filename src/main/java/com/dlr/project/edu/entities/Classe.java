@@ -42,5 +42,8 @@ public class Classe implements Serializable{
 	    private String libele;
 	    @Column(unique = true,nullable = false)
 	    private String code;
+	    
+	    @Column(nullable = false)
+	    private boolean  active;
 
 }
