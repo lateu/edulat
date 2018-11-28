@@ -1,23 +1,22 @@
 package com.dlr.project.edu.entities;
 
 public enum Cycle {
-Cycle_I("I"),Cycle_II("II");
-private final String displayName;
+	Cycle_I("I"), Cycle_II("II");
 
-/**
- * @param displayName
- */
-private Cycle(String displayName) {
-	this.displayName = displayName;
-}
+	private final String name;
 
-/**
- * @return the displayName
- */
-public String getDisplayName() {
-	return displayName;
-}
+	/**
+	 * @param displayName
+	 */
+	private Cycle(String displayName) {
+		this.name = displayName;
+	}
 
-
+	/**
+	 * @return the name
+	 */
+	public String getName() {
+		return name;
+	}
 
 }
