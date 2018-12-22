@@ -7,7 +7,7 @@
 <meta name="description" content="">
 <meta name="author" content="">
 
-<title>Classe page</title>
+<title>Level page</title>
 
 <!-- Bootstrap Core CSS -->
 <link href="../static/css/bootstrap.min.css"
@@ -52,7 +52,7 @@
 		<!-- Navigation -->
 		<nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
 			<div class="navbar-header">
-				<a class="navbar-brand" href="index.html">Startmin</a>
+				<a class="navbar-brand" th:href="@{/welcome}">Welcome</a>
 			</div>
 
 			<button type="button" class="navbar-toggle" data-toggle="collapse"
@@ -86,7 +86,7 @@
 					<div class="panel panel-default">
 						<div class="panel-heading">DataTables Advanced Tables</div>
 
-						<!-- /.panel-heading -->
+						<br/>
 						<button type="button" class="btn btn-primary" id="btn-n-niveau">Nouveau</button>
 						<div class="panel-body">
 
@@ -105,33 +105,41 @@
 										</tr>
 									</thead>
 									<tbody>
-										<tr class="odd gradeX" th:each="n : ${niveaux}">
+										<tr class="odd gradeX" th:each="n :${niveaux}">
 											<td th:text="${n.niveau}"></td>
 											<td th:text="${n.cycle_etude}"></td>
 											<td>
-												<button type="button"
-													class="btn btn-primary btn-xs glyphicon" id="btn-u-niveau">
-													<span class="glyphicon-pencil"></span>
-												</button>
-											</td>
-											<td><a th:href="@{deleteNiveau(id=${n.id})}" onclick="return confirm('voulez vous vraiment supprimer!')">
+												<!-- a th:href="@{editNiveau/(id=${n.id})}">
+													<button type="button"
+														class="btn btn-primary btn-xs glyphicon" id="btn-u-niveau">
+														<span class="glyphicon-pencil"></span>
+													</button></a--> 
+													<a th:href="@{editNiveau/(id=${n.id})}" id="btn-u-niveau">
+													<button type="button"
+														class="btn btn-primary btn-xs glyphicon" id="btn-u-niveau">
+														<span class="glyphicon-pencil"></span>
+														
+													</button>
+													</a>
+													</td>											
+											
+											<td><a th:href="@{deleteNiveau(id=${n.id})}" id="btn-d-niveau">
 													<button type="button" class="btn btn-danger btn-xs"
-														id="btn-del-niveau">
+														id="btn-d-niveau" onclick="confirm('Do you really want to delete')">
 														<span class="glyphicon glyphicon-trash"></span>
 
 													</button>
-											   </a>
-											</td>
+											</a></td>
 											<td>
 												<button type="button" class="btn btn-warning btn-xs"
 													id="btn-des-niveau">Desactiver</button>
 											</td>
-											<td>
-												<button type="button" class="btn btn-default btn-xs"
-													id="btn-v-niveau">
-													<span class="glyphicon glyphicon-eye-open"></span>
-												</button>
-											</td>
+											<td><a th:href="@{getOneNiveau/(id=${n.id})}" id="btn-v-niveau">
+													<button type="button" class="btn btn-default btn-xs"
+														id="btn-v-niveau">
+														<span class="glyphicon glyphicon-eye-open"></span> View
+													</button>
+											</a></td>
 										</tr>
 
 
@@ -156,20 +164,21 @@
 
 	<!-- nouvelle classe-->
 	<div class="container">
-		<!-- Modal -->
-		<div class="modal fade" id="modal-n-niveau" role="dialog">
-			<div class="modal-dialog">
-				<!-- Modal content-->
-				<div class="modal-content">
-					<div class="modal-header" style="padding: 35px 50px;">
-						<button type="button" class="close" data-dismiss="modal">&times;</button>
-						<h4>
-							<span class="glyphicon glyphicon-lock"></span> Nouveau niveau
-						</h4>
-					</div>
-					<div class="modal-body" style="padding: 40px 50px;">
-						<form role="form" th:action="@{newNiveau}" method="post"
-							th:objet="${classeLevel}">
+		<form role="form" th:action="@{newNiveau}" method="post"
+			th:objet="${niveauobj}">
+			<!-- Modal -->
+			<div class="modal fade" id="modal-n-niveau" role="dialog">
+				<div class="modal-dialog">
+					<!-- Modal content-->
+					<div class="modal-content">
+						<div class="modal-header" style="padding: 35px 50px;">
+							<button type="button" class="close" data-dismiss="modal">&times;</button>
+							<h4>
+								<span class="glyphicon glyphicon-lock"></span> Nouveau niveau
+							</h4>
+						</div>
+						<div class="modal-body" style="padding: 40px 50px;">
+
 							<div class="form-group">
 								<label for="code"><span></span>Code</label> <input type="text"
 									th:field="${niveauobj.niveau}" class="form-control" id="code">
@@ -187,44 +196,53 @@
 							<button type="submit" class="btn btn-success">Save</button>
 
 
-						</form>
+						</div>
+						<div class="modal-footer">
+							<button type="submit"
+								class="btn btn-danger btn-default pull-left"
+								data-dismiss="modal">
+								<span class="glyphicon glyphicon-remove"></span> Cancel
+							</button>
+						</div>
 					</div>
-					<div class="modal-footer">
-						<button type="submit" class="btn btn-danger btn-default pull-left"
-							data-dismiss="modal">
-							<span class="glyphicon glyphicon-remove"></span> Cancel
-						</button>
-					</div>
-				</div>
 
+				</div>
 			</div>
-		</div>
+		</form>
 	</div>
 
 	<!-- edit niveau-->
 	<div class="container">
-		<!-- Modal -->
-		<div class="modal fade" id="modal-u-niveau" role="dialog">
-			<div class="modal-dialog">
-				<!-- Modal content-->
-				<div class="modal-content">
-					<div class="modal-header" style="padding: 35px 50px;">
-						<button type="button" class="close" data-dismiss="modal">&times;</button>
-						<h4>
-							<span class="glyphicon glyphicon-lock"></span> Editer niveau
-						</h4>
-					</div>
-					<div class="modal-body" style="padding: 40px 50px;">
-						<form role="form" th:action="@{newNiveau}" method="post"
-							th:objet="${classeLevel}">
+		<form role="form" th:action="@{newNiveau}" method="post"
+			th:objet="${niveauobj}" id="edit_niveau_form">
+			<!-- Modal -->
+			<div class="modal fade" id="modal-u-niveau" role="dialog">
+				<div class="modal-dialog">
+					<!-- Modal content-->
+					<div class="modal-content">
+						<div class="modal-header" style="padding: 35px 50px;">
+							<button type="button" class="close" data-dismiss="modal">&times;</button>
+							<h4>
+								<span class="glyphicon glyphicon-lock"></span> niveau
+							</h4>
+						</div>
+						<div class="modal-body" style="padding: 40px 50px;">
+
+
+							<div class="form-group" hidden='hidden'>
+								<label for="id"><span></span>Id</label> <input type="text"
+									th:field="${niveauobj.id}" class="form-control" id="id">
+							</div>
+
 							<div class="form-group">
-								<label for="code"><span></span>Code</label> <input type="text"
-									th:field="${niveauobj.niveau}" class="form-control" id="code">
+								<label for="niveau"><span></span>Niveau</label> <input
+									type="text" th:field="${niveauobj.niveau}" class="form-control"
+									id="niveau" name="niveau">
 							</div>
 
 							<div class="form-group">
 								<label th:for="cycle">Cycle</label> <select
-									th:field="${niveauobj.cycle_etude}">
+									th:field="${niveauobj.cycle_etude}" id="cycle">
 									<option th:each="cycleselect : ${cycleList}"
 										th:text=" ${cycleselect.name}" th:value="${cycleselect}"></option>
 
@@ -232,21 +250,111 @@
 
 							</div>
 							<button type="submit" class="btn btn-success">Save</button>
-
-
-						</form>
+						</div>
+						<div class="modal-footer">
+							<button type="submit"
+								class="btn btn-danger btn-default pull-left"
+								data-dismiss="modal">
+								<span class="glyphicon glyphicon-remove"></span> Cancel
+							</button>
+						</div>
 					</div>
-					<div class="modal-footer">
-						<button type="submit" class="btn btn-danger btn-default pull-left"
-							data-dismiss="modal">
-							<span class="glyphicon glyphicon-remove"></span> Cancel
-						</button>
-					</div>
+
 				</div>
 
 			</div>
-		</div>
+		</form>
 	</div>
+	<!-- view niveau-->
+	<div class="container">
+		<form role="form" th:action="@{getOneNiveau}" 
+			th:objet="${niveauobj}">
+			<!-- Modal -->
+			<div class="modal fade" id="modal-v-niveau" role="dialog">
+				<div class="modal-dialog">
+					<!-- Modal content-->
+					<div class="modal-content">
+						<div class="modal-header" style="padding: 35px 50px;">
+							<button type="button" class="close" data-dismiss="modal">&times;</button>
+							<h4>
+								<span class="glyphicon glyphicon-lock"></span> niveau
+							</h4>
+						</div>
+						<div class="modal-body" style="padding: 40px 50px;">
+
+
+							<div class="form-group">
+								<label for="id"><span></span>Id</label> <input type="text"
+									th:field="${niveauobj.id}" class="form-control" id="id" name="id"
+									readonly>
+							</div>
+
+							<div class="form-group">
+								<label for="niveau"><span></span>Niveau</label> <input
+									type="text" th:field="${niveauobj.niveau}" class="form-control"
+									id="niveau" name="niveau" readonly>
+							</div>
+
+							<div class="form-group">
+								<label for="niveau"><span></span>Cycle</label> <input
+									type="text" th:field="${niveauobj.cycle_etude}"
+									class="form-control" id="cycle_etude" name="cycle_etude"
+									readonly>
+							</div>
+
+							
+
+						</div>
+						<div class="modal-footer">
+							<button type="submit"
+								class="btn btn-danger btn-default pull-left"
+								data-dismiss="modal">
+								<span class="glyphicon glyphicon-remove"></span> Cancel
+							</button>
+						</div>
+					</div>
+
+				</div>
+
+			</div>
+		</form>
+	</div>
+	
+	<!-- delete niveau modal-->
+			<!-- Modal -->
+			<div class="modal fade" id="modal-d-niveau" role="dialog">
+				<div class="modal-dialog">
+					<!-- Modal content-->
+					<div class="modal-content">
+						<!-- div class="modal-header" style="padding: 35px 50px;">
+							<button type="button" class="close" data-dismiss="modal">&times;</button>
+							
+						</div-->
+						<div class="modal-body" style="padding: 40px 50px;">
+
+							<p class="alert alert-danger">
+							Are you sure you to delete!!!
+								
+							</p>													
+
+						</div>
+						<div class="modal-footer">
+							<button type="submit"
+								class="btn btn-default pull-right"
+								data-dismiss="modal">
+								<span class="glyphicon glyphicon-remove"></span> Cancel
+							</button>
+							<a href="" class="btn btn-danger del_niveau_ref">Delete
+							</a>
+						</div>
+					</div>
+
+				</div>
+
+			</div>
+		
+	
+	
 
 
 	<div th:replace="fragments/footer :: footer"></div>
@@ -273,29 +381,38 @@
 	<!-- Custom Theme JavaScript -->
 	<script src="../static/js/startmin.js" th:src="@{/js/startmin.js}"></script>
 
+	<script src="../static/js/main.js" th:src="@{/js/main.js}"></script>
 	<!-- Page-Level Demo Scripts - Tables - Use for reference -->
-	<script>
+	<!-- script>
 		$(document).ready(function() {
 			$('#dataTables-example').DataTable({
 				responsive : true
 			});
 
 		});
-	</script>
-	<script>
+	</script-->
+	<!-- script>
 		$(document).ready(function() {
+			$('#dataTables-example').DataTable({
+				responsive : true
+			});
+			
 			$("#btn-n-niveau").click(function() {
 				$("#modal-n-niveau").modal();
 			});
+			
+			$("#btn-u-niveau").click(function() {
+				$("#modal-u-niveau").modal();
+			});
 		});
-	</script>
-	<script>
+	</script-->
+	<!-- script>
 		$(document).ready(function() {
 			$("#btn-u-niveau").click(function() {
 				$("#modal-u-niveau").modal();
 			});
 		});
-	</script>
+	</script-->
 
 </body>
 </html>

@@ -11,9 +11,9 @@ public class DefaultController {
         return "/welcome";
     }
 
-    @GetMapping("/home")
-    public String home() {
-        return "/home";
+    @GetMapping("/welcome")
+    public String homeRedirect() {
+        return "/welcome";
     }
 
    /* @GetMapping("/eleves")

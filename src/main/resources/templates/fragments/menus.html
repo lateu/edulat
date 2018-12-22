@@ -34,15 +34,23 @@
                             <li>
                                 <a href="#"><i class="fa fa-sitemap fa-fw"></i> LISTES<span class="fa arrow"></span></a>
                                 <ul class="nav nav-second-level">
+                                   <li>
+                                        <a th:href="@{/matiereCtrl/IndexMatiere}"><i class="fa fa-table fa-fw"></i> Matieres</a>
+                                    </li>
+                                    
                                     <li>
-                                        <a th:href="@{eleves}"><i class="fa fa-table fa-fw"></i> Eleves</a>
+                                        <a th:href="@{/eleveCtrl/IndexEleve}"><i class="fa fa-table fa-fw"></i> Eleves</a>
                                     </li>
                                     <li>
-                                        <a href="tables.html"><i class="fa fa-table fa-fw"></i> Enseignants</a>
+                                        <a th:href="@{/enseignantCtrl/IndexEnseignant}"><i class="fa fa-table fa-fw"></i> Enseignants</a>
                                     </li>
                                     <li>
-                                        <a href="@{classes}"><i class="fa fa-table fa-fw"></i> Classes</a>
+                                        <a th:href="@{/classeCtrl/IndexClasse}"><i class="fa fa-table fa-fw"></i> Classes</a>
                                     </li>
+                                    <li>
+                                        <a th:href="@{/niveauCtrl/IndexNiveau}"><i class="fa fa-table fa-fw"></i> Niveaux</a>
+                                    </li>
+
                                 </ul>
                                 <!-- /.nav-second-level -->
                             </li>

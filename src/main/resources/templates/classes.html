@@ -7,7 +7,7 @@
 <meta name="description" content="">
 <meta name="author" content="">
 
-<title>Classe page</title>
+<title>Level page</title>
 
 <!-- Bootstrap Core CSS -->
 <link href="../static/css/bootstrap.min.css"
@@ -52,7 +52,7 @@
 		<!-- Navigation -->
 		<nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
 			<div class="navbar-header">
-				<a class="navbar-brand" href="index.html">welcome</a>
+				<a class="navbar-brand" th:href="@{/welcome}">Welcome</a>
 			</div>
 
 			<button type="button" class="navbar-toggle" data-toggle="collapse"
@@ -84,10 +84,10 @@
 			<div class="row">
 				<div class="col-lg-12">
 					<div class="panel panel-default">
-						<div class="panel-heading">DataTables Advanced Tables</div>
+						<div class="panel-heading">Classe List</div>
 
-						<!-- /.panel-heading -->
-						<button type="button" class="btn btn-primary" id="btn-n-classe">Nouveau</button>
+						<br/>
+						<button type="button" class="btn btn-primary" id="btn-n-niveau">Nouveau</button>
 						<div class="panel-body">
 
 							<!-- button type="button" class="btn btn-primary" id="btn-n-classe">Nouveau</button-->
@@ -96,11 +96,10 @@
 									id="dataTables-example">
 									<thead>
 										<tr>
-											<th>Libele</th>
 											<th>Code</th>
+											<th>Libele</th>
 											<th>Niveau</th>
-											<th>Engine version</th>
-											<th>CSS grade</th>
+											<th>Cycle</th>
 											<th>Modifier</th>
 											<th>Supprimer</th>
 											<th>Desactiver</th>
@@ -108,155 +107,41 @@
 										</tr>
 									</thead>
 									<tbody>
-										<tr class="odd gradeX">
-											<td>Trident</td>
-											<td>Internet Explorer 4.0</td>
-											<td>Win 95+</td>
-											<td class="center">4</td>
-											<td class="center">X</td>
+										<tr class="odd gradeX" th:each="c :${classes}">
+											<td th:text="${c.code}"></td>
+											<td th:text="${c.libele}"></td>
+											<td th:text="${c.classeLevel.niveau}"></td>
+											<td th:text="${c.classeLevel.cycle_etude}"></td>
 											<td>
-												<button type="button"
-													class="btn btn-primary btn-xs glyphicon">
-													<span class="glyphicon-pencil"></span>
-												</button>
-											</td>
+												
+													<a th:href="@{editClasse/(id=${c.id})}" id="btn-u-classe">
+													<button type="button"
+														class="btn btn-primary btn-xs glyphicon" id="btn-u-classe">
+														<span class="glyphicon-pencil"></span>
+														
+													</button>
+													</a>
+													</td>											
+											
+											<td><a th:href="@{deleteClasse(id=${c.id})}" id="btn-d-classe">
+													<button type="button" class="btn btn-danger btn-xs"
+														id="btn-d-classe" onclick="confirm('Do you really want to delete')">
+														<span class="glyphicon glyphicon-trash"></span>
+
+													</button>
+											</a></td>
 											<td>
-												<button type="button" class="btn btn-danger btn-xs ">
-													<span class="glyphicon glyphicon-trash"></span>
-												</button>
+												<button type="button" class="btn btn-warning btn-xs"
+													id="btn-des-classe">Desactiver</button>
 											</td>
-											<td>
-												<button type="button" class="btn btn-warning btn-xs">Desactiver</button>
-											</td>
-											<td>
-												<button type="button" class="btn btn-default btn-xs">
-													<span class="glyphicon glyphicon-eye-open"></span>
-												</button>
-											</td>
-										</tr>
-										<tr class="even gradeC">
-											<td>Trident</td>
-											<td>Internet Explorer 5.0</td>
-											<td>Win 95+</td>
-											<td class="center">5</td>
-											<td class="center">C</td>
-											<td><button type="button" class="btn btn-primary btn-xs">Editer</button></td>
-											<td><button type="button" class="btn btn-danger btn-xs">Supprimer</button></td>
-											<td><button type="button" class="btn btn-warning btn-xs">Desactiver</button></td>
-											<td><button type="button" class="btn btn-success btn-xs">View</button></td>
-										</tr>
-										<tr class="odd gradeA">
-											<td>Trident</td>
-											<td>Internet Explorer 5.5</td>
-											<td>Win 95+</td>
-											<td class="center">5.5</td>
-											<td class="center">A</td>
-											<td><button type="button" class="btn btn-primary btn-xs">Editer</button></td>
-											<td><button type="button" class="btn btn-danger btn-xs">Supprimer</button></td>
-											<td><button type="button" class="btn btn-warning btn-xs">Desactiver</button></td>
-											<td><button type="button" class="btn btn-success btn-xs">View</button></td>
-										</tr>
-										<tr class="even gradeA">
-											<td>Trident</td>
-											<td>Internet Explorer 6</td>
-											<td>Win 98+</td>
-											<td class="center">6</td>
-											<td class="center">A</td>
-											<td><button type="button" class="btn btn-primary btn-xs">Editer</button></td>
-											<td><button type="button" class="btn btn-danger btn-xs">Supprimer</button></td>
-											<td><button type="button" class="btn btn-warning btn-xs">Desactiver</button></td>
-											<td><button type="button" class="btn btn-success btn-xs">View</button></td>
-										</tr>
-										<tr class="odd gradeA">
-											<td>Trident</td>
-											<td>Internet Explorer 7</td>
-											<td>Win XP SP2+</td>
-											<td class="center">7</td>
-											<td class="center">A</td>
-											<td><button type="button" class="btn btn-primary btn-xs">Editer</button></td>
-											<td><button type="button" class="btn btn-danger btn-xs">Supprimer</button></td>
-											<td><button type="button" class="btn btn-warning btn-xs">Desactiver</button></td>
-											<td><button type="button" class="btn btn-success btn-xs">View</button></td>
-										</tr>
-										<tr class="even gradeA">
-											<td>Trident</td>
-											<td>AOL browser (AOL desktop)</td>
-											<td>Win XP</td>
-											<td class="center">6</td>
-											<td class="center">A</td>
-											<td>
-												<button type="button"
-													class="btn btn-primary btn-xs glyphicon">
-													<span class="glyphicon-pencil"></span>
-												</button>
-											</td>
-											<td>
-												<button type="button" class="btn btn-danger btn-xs ">
-													<span class="glyphicon glyphicon-trash"></span>
-												</button>
-											</td>
-											<td>
-												<button type="button" class="btn btn-warning btn-xs">Desactiver</button>
-											</td>
-											<td>
-												<button type="button" class="btn btn-default btn-xs">
-													<span class="glyphicon glyphicon-eye-open"></span>
-												</button>
-											</td>
-										</tr>
-										<tr class="gradeA">
-											<td>Gecko</td>
-											<td>Firefox 1.0</td>
-											<td>Win 98+ / OSX.2+</td>
-											<td class="center">1.7</td>
-											<td class="center">A</td>
-											<td>
-												<button type="button"
-													class="btn btn-primary btn-xs glyphicon">
-													<span class="glyphicon-pencil"></span>
-												</button>
-											</td>
-											<td>
-												<button type="button" class="btn btn-danger btn-xs ">
-													<span class="glyphicon glyphicon-trash"></span>
-												</button>
-											</td>
-											<td>
-												<button type="button" class="btn btn-warning btn-xs">Desactiver</button>
-											</td>
-											<td>
-												<button type="button" class="btn btn-default btn-xs">
-													<span class="glyphicon glyphicon-eye-open"></span>
-												</button>
-											</td>
+											<td><a th:href="@{getOneClasse/(id=${c.id})}" id="btn-v-classe">
+													<button type="button" class="btn btn-default btn-xs"
+														id="btn-v-classe">
+														<span class="glyphicon glyphicon-eye-open"></span> View
+													</button>
+											</a></td>
 										</tr>
 
-										<tr class="gradeA">
-											<td>Gecko</td>
-											<td>Firefox 3.0</td>
-											<td>Win 2k+ / OSX.3+</td>
-											<td class="center">1.9</td>
-											<td class="center">A</td>
-											<td>
-												<button type="button"
-													class="btn btn-primary btn-xs glyphicon">
-													<span class="glyphicon-pencil"></span>
-												</button>
-											</td>
-											<td>
-												<button type="button" class="btn btn-danger btn-xs ">
-													<span class="glyphicon glyphicon-trash"></span>
-												</button>
-											</td>
-											<td>
-												<button type="button" class="btn btn-warning btn-xs">Desactiver</button>
-											</td>
-											<td>
-												<button type="button" class="btn btn-default btn-xs">
-													<span class="glyphicon glyphicon-eye-open"></span>
-												</button>
-											</td>
-										</tr>
 
 									</tbody>
 								</table>
@@ -279,45 +164,211 @@
 
 	<!-- nouvelle classe-->
 	<div class="container">
-		<!-- Modal -->
-		<div class="modal fade" id="modal-n-classe" role="dialog">
-			<div class="modal-dialog">
-				<!-- Modal content-->
-				<div class="modal-content">
-					<div class="modal-header" style="padding: 35px 50px;">
-						<button type="button" class="close" data-dismiss="modal">&times;</button>
-						<h4>
-							<span class="glyphicon glyphicon-lock"></span> Nouvelle Classe
-						</h4>
-					</div>
-					<div class="modal-body" style="padding: 40px 50px;">
-						<form role="form">
+		<form role="form" th:action="@{newClasse}" method="post"
+			th:objet="${classeobj}">
+			<!-- Modal -->
+			<div class="modal fade" id="modal-n-niveau" role="dialog">
+				<div class="modal-dialog">
+					<!-- Modal content-->
+					<div class="modal-content">
+						<div class="modal-header" style="padding: 35px 50px;">
+							<button type="button" class="close" data-dismiss="modal">&times;</button>
+							<h4>
+								<span class="glyphicon glyphicon-lock"></span> Nouvelle classe
+							</h4>
+						</div>
+						<div class="modal-body" style="padding: 40px 50px;">
+
 							<div class="form-group">
-								<label for="name"><span></span>Nom</label> <input type="text"
-									class="form-control" id="name">
+								<label for="code"><span></span>Code</label> <input type="text"
+									th:field="${classeobj.code}" class="form-control" id="code">
 							</div>
 							<div class="form-group">
-								<label for="code"><span></span> Code</label> <input type="text"
-									class="form-control" id="code">
+								<label for="libele"><span></span>Libele</label> <input type="text"
+									th:field="${classeobj.libele}" class="form-control" id="libele">
+							</div>
+
+							<div class="form-group">
+								<label th:for="nv">Niveau</label> <select
+									th:field="${classeobj.classeLevel}" id="nv">
+									<option th:each="nv : ${niveaux}"
+										th:text=" ${nv.niveau}" th:value="${nv.id}"></option>
+
+								</select>
+
 							</div>
 							<button type="submit" class="btn btn-success">Save</button>
 
 
-						</form>
+						</div>
+						<div class="modal-footer">
+							<button type="submit"
+								class="btn btn-danger btn-default pull-left"
+								data-dismiss="modal">
+								<span class="glyphicon glyphicon-remove"></span> Cancel
+							</button>
+						</div>
 					</div>
-					<div class="modal-footer">
-						<button type="submit" class="btn btn-danger btn-default pull-left"
-							data-dismiss="modal">
-							<span class="glyphicon glyphicon-remove"></span> Cancel
-						</button>
+
+				</div>
+			</div>
+		</form>
+	</div>
+
+	<!-- edit niveau-->
+	<div class="container">
+		<form role="form" th:action="@{newClasse}" method="post"
+			th:objet="${classeobj}" id="edit_niveau_form">
+			<!-- Modal -->
+			<div class="modal fade" id="modal-u-niveau" role="dialog">
+				<div class="modal-dialog">
+					<!-- Modal content-->
+					<div class="modal-content">
+						<div class="modal-header" style="padding: 35px 50px;">
+							<button type="button" class="close" data-dismiss="modal">&times;</button>
+							<h4>
+								<span class="glyphicon glyphicon-lock"></span> Classe
+							</h4>
+						</div>
+						<div class="modal-body" style="padding: 40px 50px;">
+
+
+							<div class="form-group" hidden='hidden'>
+								<label for="id"><span></span>Id</label> <input type="text"
+									th:field="${classeobj.id}" class="form-control" id="id">
+							</div>
+
+							<div class="form-group">
+								<label for="code"><span></span>Code</label> <input
+									type="text" th:field="${classeobj.code}" class="form-control"
+									id="code" name="code">
+							</div>
+							<div class="form-group">
+								<label for="libele"><span></span>Libele</label> <input
+									type="text" th:field="${classeobj.libele}" class="form-control"
+									id="libele" name="libele" >
+							</div>
+
+							<div class="form-group">
+								<label th:for="nv">Niveau</label> <select
+									th:field="${classeobj.classeLevel}" id="nv">
+									<option th:each="nv : ${niveaux}"
+										th:text=" ${nv.niveau}" th:value="${nv.id}"></option>
+
+								</select>
+
+							</div>
+							<button type="submit" class="btn btn-success">Save</button>
+						</div>
+						<div class="modal-footer">
+							<button type="submit"
+								class="btn btn-danger btn-default pull-left"
+								data-dismiss="modal">
+								<span class="glyphicon glyphicon-remove"></span> Cancel
+							</button>
+						</div>
 					</div>
+
 				</div>
 
 			</div>
-		</div>
+		</form>
 	</div>
+	<!-- view niveau-->
+	<div class="container">
+		<form role="form" th:action="@{getOneClasse}" 
+			th:objet="${classeobj}">
+			<!-- Modal -->
+			<div class="modal fade" id="modal-v-niveau" role="dialog">
+				<div class="modal-dialog">
+					<!-- Modal content-->
+					<div class="modal-content">
+						<div class="modal-header" style="padding: 35px 50px;">
+							<button type="button" class="close" data-dismiss="modal">&times;</button>
+							<h4>
+								<span class="glyphicon glyphicon-lock"></span> Classe
+							</h4>
+						</div>
+						<div class="modal-body" style="padding: 40px 50px;">
 
 
+							<div class="form-group">
+								<label for="id"><span></span>Id</label> <input type="text"
+									th:field="${classeobj.id}" class="form-control" id="id" name="id"
+									readonly>
+							</div>
+
+							<div class="form-group">
+								<label for="code"><span></span>Code</label> <input
+									type="text" th:field="${classeobj.code}" class="form-control"
+									id="code" name="code" readonly>
+							</div>
+							<div class="form-group">
+								<label for="libele"><span></span>Libele</label> <input
+									type="text" th:field="${classeobj.libele}" class="form-control"
+									id="libele" name="libele" readonly>
+							</div>
+
+							<!--div class="form-group">
+								<label for="niveau"><span></span>Cycle</label> <input
+									type="text" th:field="${classeobj.cycle_etude}"
+									class="form-control" id="cycle_etude" name="cycle_etude"
+									readonly>
+							</div-->
+
+							
+
+						</div>
+						<div class="modal-footer">
+							<button type="submit"
+								class="btn btn-danger btn-default pull-left"
+								data-dismiss="modal">
+								<span class="glyphicon glyphicon-remove"></span> Cancel
+							</button>
+						</div>
+					</div>
+
+				</div>
+
+			</div>
+		</form>
+	</div>
+	
+	<!-- delete niveau modal-->
+			<!-- Modal -->
+			<div class="modal fade" id="modal-d-niveau" role="dialog">
+				<div class="modal-dialog">
+					<!-- Modal content-->
+					<div class="modal-content">
+						<!-- div class="modal-header" style="padding: 35px 50px;">
+							<button type="button" class="close" data-dismiss="modal">&times;</button>
+							
+						</div-->
+						<div class="modal-body" style="padding: 40px 50px;">
+
+							<p class="alert alert-danger">
+							Are you sure you to delete!!!
+								
+							</p>													
+
+						</div>
+						<div class="modal-footer">
+							<button type="submit"
+								class="btn btn-default pull-right"
+								data-dismiss="modal">
+								<span class="glyphicon glyphicon-remove"></span> Cancel
+							</button>
+							<a href="" class="btn btn-danger del_niveau_ref">Delete
+							</a>
+						</div>
+					</div>
+
+				</div>
+
+			</div>
+		
+	
+	
 
 
 	<div th:replace="fragments/footer :: footer"></div>
@@ -344,22 +395,38 @@
 	<!-- Custom Theme JavaScript -->
 	<script src="../static/js/startmin.js" th:src="@{/js/startmin.js}"></script>
 
+	<script src="../static/js/main.js" th:src="@{/js/main.js}"></script>
 	<!-- Page-Level Demo Scripts - Tables - Use for reference -->
-	<script>
+	<!-- script>
 		$(document).ready(function() {
 			$('#dataTables-example').DataTable({
 				responsive : true
 			});
 
 		});
-	</script>
-	<script>
+	</script-->
+	<!-- script>
 		$(document).ready(function() {
-			$("#btn-n-classe").click(function() {
-				$("#modal-n-classe").modal();
+			$('#dataTables-example').DataTable({
+				responsive : true
+			});
+			
+			$("#btn-n-niveau").click(function() {
+				$("#modal-n-niveau").modal();
+			});
+			
+			$("#btn-u-niveau").click(function() {
+				$("#modal-u-niveau").modal();
 			});
 		});
-	</script>
+	</script-->
+	<!-- script>
+		$(document).ready(function() {
+			$("#btn-u-niveau").click(function() {
+				$("#modal-u-niveau").modal();
+			});
+		});
+	</script-->
 
 </body>
 </html>
